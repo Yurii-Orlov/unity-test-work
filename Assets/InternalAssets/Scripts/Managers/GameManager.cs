@@ -1,8 +1,8 @@
 ﻿using System;
-using OrCor.DataInstallers;
+using TestWork.Bindings.ScriptableInstallers;
 using Zenject;
 
-namespace OrCor
+namespace TestWork.Managers
 {
     public class GameManager : IInitializable, IDisposable
     {

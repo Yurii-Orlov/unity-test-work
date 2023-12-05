@@ -1,8 +1,8 @@
-﻿using Zenject;
+﻿using TestWork.Managers;
+using Zenject;
 
-namespace OrCor
+namespace TestWork.Game.Player
 {
-
     public class PlayerController 
     {
         private readonly GameManager _gameManager;
@@ -23,5 +23,4 @@ namespace OrCor
 
         }
     }
-
 }

@@ -1,6 +1,6 @@
 ﻿using Zenject;
 
-namespace OrCor.Pool
+namespace TestWork.Game.Pool
 {
 
     public class EnemyFacade : ObjectFacade

@@ -1,7 +1,7 @@
 ﻿using System;
 using Zenject;
 
-namespace OrCor.States
+namespace TestWork.GameStates
 {
     public abstract class GameStateEntity : IInitializable, ITickable, IDisposable
     {

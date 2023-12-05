@@ -3,7 +3,7 @@ using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.SceneManagement;
 
-namespace OrCor
+namespace TestWork.Modules.LoadContent.Addressable
 {
     public sealed class UnloadSceneOperation : AsyncOperationBase<SceneLoadData>
     {

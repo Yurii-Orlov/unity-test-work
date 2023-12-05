@@ -2,7 +2,7 @@
 using UnityEngine;
 using Zenject;
 
-namespace OrCor.Pool
+namespace TestWork.Game.Pool
 {
 
     public abstract class ObjectFacade : MonoBehaviour, IPoolable<IMemoryPool>, IDisposable

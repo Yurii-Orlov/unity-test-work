@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using Zenject;
 
-namespace OrCor.DataInstallers
+namespace TestWork.Bindings.ScriptableInstallers
 {
     [CreateAssetMenu(fileName = "GameSceneInstaller", menuName = "Installers/GameSceneInstaller")]
     public class GameSceneInstaller : ScriptableObjectInstaller<GameSceneInstaller>

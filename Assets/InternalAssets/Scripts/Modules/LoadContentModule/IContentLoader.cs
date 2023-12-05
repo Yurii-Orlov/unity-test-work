@@ -1,7 +1,7 @@
 ﻿using System;
 using Object = UnityEngine.Object;
 
-namespace OrCor
+namespace TestWork.Modules.LoadContent
 {
     public interface IContentLoader
     {

@@ -1,8 +1,9 @@
 ﻿using System;
-using OrCor.UI;
+using TestWork.UI.Interfaces;
+using TestWork.UI.MenuPage;
 using Zenject;
 
-namespace OrCor.SceneBinding
+namespace TestWork.Bindings.SceneBinding
 {
     public class MenuSceneBindings : MonoInstaller
     {

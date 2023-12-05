@@ -1,19 +1,20 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using OrCor.UI;
+using TestWork.Modules.LoadContent.Addressable;
+using TestWork.UI.LoadingPopup;
 using UniRx;
 using UnityEngine;
 using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.SceneManagement;
 using Zenject;
 
-namespace OrCor.Manager
+namespace TestWork.Managers
 {
     public class SceneLoaderManager : IInitializable
     {
-        public event Action<float> OnSceneLoading;
-        public event Action OnSceneFinishedLoading;
+        public event Action<float> SceneLoading;
+        public event Action SceneFinishedLoading;
 
         private readonly UIManager _uIManager;
         private readonly List<string> _loadedBuildInScenes;
@@ -87,7 +88,10 @@ namespace OrCor.Manager
                 };
             }
             
-            if (!_loadedAddressablesScenes.ContainsKey(sceneName) && asyncOperation.IsValid()) _loadedAddressablesScenes.Add(sceneName, asyncOperation);
+            if (!_loadedAddressablesScenes.ContainsKey(sceneName) && asyncOperation.IsValid())
+            {
+                _loadedAddressablesScenes.Add(sceneName, asyncOperation);
+            }
         }
 
         private void AsyncSceneLoad(AsyncOperation asyncOperation)
@@ -122,22 +126,22 @@ namespace OrCor.Manager
         {
             while (asyncOperation.PercentComplete <= 0.9f)
             {
-                OnSceneLoading?.Invoke(asyncOperation.PercentComplete);
+                SceneLoading?.Invoke(asyncOperation.PercentComplete);
                 yield return null;
             }
             
-            OnSceneLoading?.Invoke(asyncOperation.PercentComplete);
+            SceneLoading?.Invoke(asyncOperation.PercentComplete);
         }
         
         private IEnumerator SceneLoadingAnimation(AsyncOperation asyncOperation)
         {
             while (asyncOperation.progress <= 0.9f)
             {
-                OnSceneLoading?.Invoke(asyncOperation.progress);
+                SceneLoading?.Invoke(asyncOperation.progress);
                 yield return null;
             }
             
-            OnSceneLoading?.Invoke(asyncOperation.progress);
+            SceneLoading?.Invoke(asyncOperation.progress);
         }
 
         private void SceneLoadingStarted()
@@ -147,11 +151,9 @@ namespace OrCor.Manager
         
         private void SceneLoadedDelay()
         {
-            //OnSceneLoading?.Invoke(1f);
-            
             Observable.Timer(TimeSpan.FromSeconds(0.5f)).Subscribe(p =>
             {
-                OnSceneFinishedLoading?.Invoke();
+                SceneFinishedLoading?.Invoke();
             }).AddTo(_disposables);
         }
 

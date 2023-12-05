@@ -2,7 +2,7 @@
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
 
-namespace OrCor
+namespace TestWork.Modules.LoadContent
 {
     public class AddressablesLoader : IContentLoader
     {

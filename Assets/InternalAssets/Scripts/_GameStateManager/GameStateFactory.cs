@@ -1,6 +1,8 @@
 ﻿using ModestTree;
+using TestWork.GameStates.States;
+using TestWork.ProjectSettings;
 
-namespace OrCor.States
+namespace TestWork.GameStates
 {
     public class GameStateFactory
     {

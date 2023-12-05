@@ -1,15 +1,11 @@
-﻿using UnityEngine;
+﻿using TestWork.ProjectSettings;
+using UnityEngine;
 using Zenject;
 
-namespace OrCor.States
+namespace TestWork.GameStates
 {
     public class GameStateManager : MonoBehaviour, IInitializable, ITickable
     {
-        [SerializeField]
-        private Enumerators.GameStateTypes _currentGameState = Enumerators.GameStateTypes.START_GAMEPLAY;
-
-        [SerializeField] private Enumerators.GameStateTypes _previousGameState;
-
         private GameStateFactory _gameStateFactory;
         private GameStateEntity _gameStateEntity;
 
@@ -26,10 +22,7 @@ namespace OrCor.States
                 _gameStateEntity.Dispose();
                 _gameStateEntity = null;
             }
-
-            _previousGameState = _currentGameState;
-            _currentGameState = state;
-
+            
             _gameStateEntity = _gameStateFactory.CreateState(state);
             _gameStateEntity.Initialize();
             _gameStateEntity.Start();

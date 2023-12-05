@@ -4,7 +4,7 @@ using UnityEngine;
 using Zenject;
 using Object = UnityEngine.Object;
 
-namespace OrCor
+namespace TestWork.Modules.LoadContent
 {
     public enum ContentLoaderType
     {

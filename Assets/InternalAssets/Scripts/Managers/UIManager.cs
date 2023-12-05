@@ -1,15 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using OrCor.States;
+using TestWork.GameStates;
+using TestWork.UI.Interfaces;
 using UniRx;
 using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
 using Object = UnityEngine.Object;
-using ObservableExtensions = UniRx.ObservableExtensions;
 
-namespace OrCor.Manager
+namespace TestWork.Managers
 {
     public class UIManager : IInitializable, IDisposable
     {
@@ -70,20 +70,30 @@ namespace OrCor.Manager
 
         public void HideAllPages()
         {
-            foreach (var item in Pages) item.Hide();
+            foreach (var item in Pages)
+            {
+                item.Hide();
+            }
         }
 
         public void HideAllPopups()
         {
-            foreach (var item in Popups) item.Hide();
+            foreach (var item in Popups)
+            {
+                item.Hide();
+            }
         }
 
         public void SetPage<T>(bool hideAll = false) where T : IUIElement
         {
             if (hideAll)
+            {
                 HideAllPages();
+            }
             else
+            {
                 CurrentPage?.Hide();
+            }
 
             foreach (var item in Pages.OfType<T>())
             {
@@ -103,15 +113,24 @@ namespace OrCor.Manager
                 break;
             }
 
-            if (popup == null) return;
+            if (popup == null)
+            {
+                return;
+            }
 
             if (setMainPriority)
+            {
                 popup.SetMainPriority();
+            }
 
             if (message == null)
+            {
                 popup.Show();
+            }
             else
+            {
                 popup.Show(message);
+            }
         }
 
         public void HidePopup<T>() where T : IUIPopup
@@ -150,7 +169,7 @@ namespace OrCor.Manager
 
         private void Dispose()
         {
-            if (!ReferenceEquals(Pages, null))
+            if (Pages != null)
             {
                 foreach (var page in Pages.ToList())
                 {
@@ -158,7 +177,7 @@ namespace OrCor.Manager
                 }
             }
 
-            if (!ReferenceEquals(Popups, null))
+            if (Popups != null)
             {
                 foreach (var popup in Popups.ToList())
                 {

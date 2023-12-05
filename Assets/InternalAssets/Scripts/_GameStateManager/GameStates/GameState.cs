@@ -1,11 +1,12 @@
-﻿using OrCor.Manager;
-using OrCor.UI;
+﻿using TestWork.Managers;
+using TestWork.ProjectSettings;
+using TestWork.UI.GamePage;
 using UniRx;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Zenject;
 
-namespace OrCor.States
+namespace TestWork.GameStates.States
 {
     public class GameState : GameStateEntity
     {
@@ -26,14 +27,14 @@ namespace OrCor.States
 
         public override void Start()
         {
-            _sceneLoaderManager.ChangeScene(SceneNamesConstants.SCENE_GAME_NAME, LoadSceneMode.Additive);
+            _sceneLoaderManager.ChangeScene(SceneNames.GAME, LoadSceneMode.Additive);
 
             Debug.Log("Gameplay state started");
         }
 
         public override void Initialize()
         {
-            _sceneLoaderManager.OnSceneFinishedLoading += SceneFinishLoading;
+            _sceneLoaderManager.SceneFinishedLoading += SceneFinishLoading;
         }
 
         public override void Tick()
@@ -42,8 +43,8 @@ namespace OrCor.States
 
         public override void Dispose()
         {
-            _sceneLoaderManager.UnloadScene(SceneNamesConstants.SCENE_GAME_NAME);
-            _sceneLoaderManager.OnSceneFinishedLoading -= SceneFinishLoading;
+            _sceneLoaderManager.UnloadScene(SceneNames.GAME);
+            _sceneLoaderManager.SceneFinishedLoading -= SceneFinishLoading;
             _disposable.Dispose();
         }
 

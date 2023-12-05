@@ -6,7 +6,7 @@ using UnityEngine.ResourceManagement.ResourceLocations;
 using UnityEngine.ResourceManagement.ResourceProviders;
 using UnityEngine.SceneManagement;
 
-namespace OrCor
+namespace TestWork.Modules.LoadContent.Addressable
 {
     public class SceneLoadData
     {

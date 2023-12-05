@@ -1,10 +1,13 @@
 ﻿using System;
-using OrCor.Pool;
-using OrCor.UI;
+using TestWork.Game.Player;
+using TestWork.Game.Pool;
+using TestWork.Managers;
+using TestWork.UI.GamePage;
+using TestWork.UI.Interfaces;
 using UnityEngine;
 using Zenject;
 
-namespace OrCor.SceneBinding
+namespace TestWork.Bindings.SceneBinding
 {
     public class GameSceneBindings : MonoInstaller
     {

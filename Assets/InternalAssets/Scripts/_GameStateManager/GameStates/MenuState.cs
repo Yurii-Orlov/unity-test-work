@@ -1,10 +1,11 @@
-﻿using OrCor.Manager;
-using OrCor.UI;
+﻿using TestWork.Managers;
+using TestWork.ProjectSettings;
+using TestWork.UI.MenuPage;
 using UniRx;
 using UnityEngine.SceneManagement;
 using Zenject;
 
-namespace OrCor.States
+namespace TestWork.GameStates.States
 {
     public class MenuState : GameStateEntity
     {
@@ -25,12 +26,12 @@ namespace OrCor.States
 
         public override void Initialize()
         {
-            _sceneLoaderManager.OnSceneFinishedLoading += MenuState_OnSceneFinishedLoading;
+            _sceneLoaderManager.SceneFinishedLoading += OnSceneFinishLoading;
         }
 
         public override void Start()
         {
-            _sceneLoaderManager.ChangeScene(SceneNamesConstants.SCENE_MENU_NAME, LoadSceneMode.Additive);
+            _sceneLoaderManager.ChangeScene(SceneNames.MENU, LoadSceneMode.Additive);
         }
 
         public override void Tick()
@@ -39,12 +40,12 @@ namespace OrCor.States
 
         public override void Dispose()
         {
-            _sceneLoaderManager.UnloadScene(SceneNamesConstants.SCENE_MENU_NAME);
-            _sceneLoaderManager.OnSceneFinishedLoading -= MenuState_OnSceneFinishedLoading;
+            _sceneLoaderManager.UnloadScene(SceneNames.MENU);
+            _sceneLoaderManager.SceneFinishedLoading -= OnSceneFinishLoading;
             _disposable.Dispose();
         }
 
-        private void MenuState_OnSceneFinishedLoading()
+        private void OnSceneFinishLoading()
         {
             _uIManager.HideAllPopups();
             

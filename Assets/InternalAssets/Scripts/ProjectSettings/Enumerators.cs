@@ -1,4 +1,4 @@
-﻿namespace OrCor
+﻿namespace TestWork.ProjectSettings
 {
     public class Enumerators
     {

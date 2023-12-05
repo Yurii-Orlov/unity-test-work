@@ -2,8 +2,12 @@
 
 namespace TestWork.Game.Player
 {
-	public class PlayerModel : MonoBehaviour
+
+	public class PlayerView : MonoBehaviour
 	{
 
+		
+
 	}
+
 }
