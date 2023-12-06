@@ -13,6 +13,7 @@ namespace Zenject.SpaceFighter
             Rigidbody rigidBody,
             MeshRenderer renderer)
         {
+            Debug.Log($"PlayerModel1 rigidBody = {rigidBody}");
             _rigidBody = rigidBody;
             _renderer = renderer;
         }
