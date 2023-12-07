@@ -1,5 +1,4 @@
 ﻿using System;
-using TestWork.Bindings.ScriptableInstallers;
 using Zenject;
 
 namespace TestWork.Managers
@@ -11,8 +10,6 @@ namespace TestWork.Managers
         private event Action StartGame;
         
         public bool IsGameRunning { get; private set; }
-
-        [Inject] private TestSettings _testSettings;
 
 
         public void PauseGame()

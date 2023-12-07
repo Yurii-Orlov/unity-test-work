@@ -1,5 +1,4 @@
 ﻿using System;
-using TestWork.Game.Player;
 using TestWork.Game.Pool;
 using TestWork.Managers;
 using TestWork.UI.GamePage;
@@ -24,7 +23,6 @@ namespace TestWork.Bindings.SceneBinding
         {
             Container.BindInterfacesAndSelfTo<GameManager>().AsSingle();
             Container.Bind(typeof(IInitializable), typeof(IDisposable)).To<SpawnerController>().AsSingle();
-            Container.BindFactory<PlayerController, PlayerController.Factory>();
         }
 
         private void InitUiViews()
