@@ -1,4 +1,6 @@
 ﻿using System;
+using TestWork.Bindings.ScriptableInstallers;
+using TestWork.Game.Enemies;
 using TestWork.Game.Pool;
 using TestWork.Managers;
 using TestWork.UI.GamePage;
@@ -10,7 +12,7 @@ namespace TestWork.Bindings.SceneBinding
 {
     public class GameSceneBindings : MonoInstaller
     {
-        [SerializeField] private GameObject _enemyPrefab;
+        [Inject] private Settings _settings;
 
         public override void InstallBindings()
         {
@@ -21,6 +23,7 @@ namespace TestWork.Bindings.SceneBinding
 
         private void InitServices()
         {
+            Container.Bind<EnemyRegistry>().AsSingle();
             Container.BindInterfacesAndSelfTo<GameManager>().AsSingle();
             Container.Bind(typeof(IInitializable), typeof(IDisposable)).To<SpawnerController>().AsSingle();
         }
@@ -32,18 +35,22 @@ namespace TestWork.Bindings.SceneBinding
 
         private void InitPool()
         {
-            Container.BindFactory<EnemyFacade, EnemyFacade.Factory>()
-                     .FromMonoPoolableMemoryPool(b => b
-                                                      .WithInitialSize(2)
-                                                      .FromSubContainerResolve()
-                                                      .ByNewPrefabMethod(_enemyPrefab, InstallEnemy)
-                                                      .UnderTransformGroup("Enemies"));
+            Container.BindFactory<float, float, EnemyFacade, EnemyFacade.Factory>()
+                     .FromPoolableMemoryPool<float, float, EnemyFacade, EnemyFacadePool>(poolBinder => poolBinder
+                         .WithInitialSize(8)
+                         .FromSubContainerResolve()
+                         .ByNewPrefabInstaller<EnemyInstaller>(_settings.enemyFacadePrefab)
+                         .UnderTransformGroup("Enemies"));
+        }
+        
+        [Serializable]
+        public class Settings
+        {
+            public GameObject enemyFacadePrefab;
         }
 
-        private static void InstallEnemy(DiContainer subContainer)
+        class EnemyFacadePool : MonoPoolableMemoryPool<float, float, IMemoryPool, EnemyFacade>
         {
-            subContainer.Bind<EnemyFacade>().FromNewComponentOnRoot().AsSingle();
-            subContainer.Bind<PoolableManager>().AsSingle();
         }
     }
 }
