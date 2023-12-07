@@ -1,5 +1,6 @@
 using System;
 using TestWork.Bindings.SceneBinding;
+using TestWork.Game.Enemies;
 using TestWork.Game.Enemies.EnemyStates;
 using TestWork.Game.Player;
 using UnityEngine;
@@ -12,11 +13,13 @@ namespace TestWork.Bindings.ScriptableInstallers
     {
         [SerializeField] private PlayerSettings _playerSettings;
         [SerializeField] private GameSceneBindings.Settings _gameInstaller;
+        [SerializeField] private EnemySpawner.Settings _enemySpawner;
 
         public override void InstallBindings()
         {
             Container.BindInstance(_playerSettings.playerMoveHandler).IfNotBound();
             Container.BindInstance(_gameInstaller).IfNotBound();
+            Container.BindInstance(_enemySpawner).IfNotBound();
         }
     }
     

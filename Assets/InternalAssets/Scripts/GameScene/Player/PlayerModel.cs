@@ -4,9 +4,8 @@ namespace TestWork.Game.Player
 {
 	public class PlayerModel
 	{
-		readonly Rigidbody _rigidBody;
-
-		float _health = 100.0f;
+		private readonly Rigidbody _rigidBody;
+		private float _health = 100.0f;
 		
 		public PlayerModel(Rigidbody rigidBody)
 		{

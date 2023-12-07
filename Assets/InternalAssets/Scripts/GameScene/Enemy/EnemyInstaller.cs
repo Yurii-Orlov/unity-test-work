@@ -9,6 +9,8 @@ namespace TestWork.Game.Enemies
 
 		public override void InstallBindings()
 		{
+			Container.Bind<EnemyModel>().AsSingle();
+			
 			Container.BindInterfacesAndSelfTo<EnemyStateManager>().AsSingle();
 
 			Container.Bind<EnemyStateIdle>().AsSingle();

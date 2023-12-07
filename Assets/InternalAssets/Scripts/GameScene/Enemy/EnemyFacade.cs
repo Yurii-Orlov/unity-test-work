@@ -1,33 +1,32 @@
 ﻿using System;
-using TestWork.Game.Enemies.EnemyStates;
 using UnityEngine;
 using Zenject;
 
 namespace TestWork.Game.Enemies
 {
 
-	public class EnemyFacade : MonoBehaviour, IPoolable<float, float, IMemoryPool>, IDisposable
+	public class EnemyFacade : MonoBehaviour, IPoolable<float, IMemoryPool>, IDisposable
 	{
 
-		EnemyView _view;
-		EnemyRegistry _registry;
-		IMemoryPool _pool;
-		EnemyStateManager _stateManager;
+		private EnemyModel _enemyModel;
+		private EnemyView _view;
+		private EnemyRegistry _registry;
+		private IMemoryPool _pool;
 
 		[Inject]
 		public void Construct(EnemyView view,
 		                      EnemyRegistry registry,
-		                      EnemyStateManager stateManager)
+		                      EnemyModel enemyModel)
 		{
 			_view = view;
 			_registry = registry;
-			_stateManager = stateManager;
+			_enemyModel = enemyModel;
 		}
 
 		public Vector3 Position
 		{
-			get { return _view.Position; }
-			set { _view.Position = value; }
+			get => _view.Position;
+			set => _view.Position = value;
 		}
 
 		public void Dispose()
@@ -41,14 +40,14 @@ namespace TestWork.Game.Enemies
 			_pool = null;
 		}
 
-		public void OnSpawned(float accuracy, float speed, IMemoryPool pool)
+		public void OnSpawned(float speed, IMemoryPool pool)
 		{
 			_pool = pool;
-
+			_enemyModel.InitSpeed(speed);
 			_registry.AddEnemy(this);
 		}
 
-		public class Factory : PlaceholderFactory<float, float, EnemyFacade>
+		public class Factory : PlaceholderFactory<float, EnemyFacade>
 		{
 
 		}
