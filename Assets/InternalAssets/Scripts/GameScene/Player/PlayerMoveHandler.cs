@@ -31,18 +31,14 @@ namespace TestWork.Game.Player
 			if (isMoving)
 			{
 				_model.Rigidbody.isKinematic = false;
-				var playerRotation = _model.Rotation;
-				var playerPosition = _model.Position;
-				var move = new Vector3(moveInput.x, 0f, moveInput.y);
 
-				var needRotation = Quaternion.LookRotation(move);
-				var finalRotation = Quaternion.Slerp(playerRotation, needRotation, Time.fixedDeltaTime * _settings.rotationSpeed);
-				
-				var finalPosition = playerPosition + finalRotation * Vector3.forward * (Time.fixedDeltaTime * _settings.moveSpeed * moveInput.magnitude);
-				_model.Position = finalPosition;
+				_model.Velocity = new Vector3(moveInput.x * _settings.moveSpeed * Time.fixedDeltaTime, 
+				                              _model.Velocity.y, 
+				                              moveInput.y * _settings.moveSpeed * Time.fixedDeltaTime);
 
-				_model.Rotation = Quaternion.LookRotation(finalPosition - playerPosition);
 				
+				_model.Rotation = Quaternion.LookRotation(_model.Velocity);
+
 				return;
 			}
 			
@@ -53,7 +49,6 @@ namespace TestWork.Game.Player
 		public class Settings
 		{
 			public float moveSpeed;
-			public float rotationSpeed;
 		}
 
 	}
