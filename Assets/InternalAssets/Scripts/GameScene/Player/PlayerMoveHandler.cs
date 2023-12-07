@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using Zenject;
 
 namespace TestWork.Game.Player
@@ -6,15 +7,15 @@ namespace TestWork.Game.Player
 
 	public class PlayerMoveHandler : IFixedTickable
 	{
-		public float moveSpeed = 5f; // Adjust the move speed
-		public float rotationSpeed = 2f;
-		private PlayerModel _model;
+		private readonly PlayerModel _model;
 		private readonly PlayerInputState _inputState;
+		private readonly Settings _settings;
 
-		public PlayerMoveHandler(PlayerModel model, PlayerInputState inputState)
+		public PlayerMoveHandler(PlayerModel model, PlayerInputState inputState, Settings settings)
 		{
 			_model = model;
 			_inputState = inputState;
+			_settings = settings;
 		}
 
 		public void FixedTick()
@@ -35,9 +36,9 @@ namespace TestWork.Game.Player
 				var move = new Vector3(moveInput.x, 0f, moveInput.y);
 
 				var needRotation = Quaternion.LookRotation(move);
-				var finalRotation = Quaternion.Slerp(playerRotation, needRotation, Time.fixedDeltaTime * rotationSpeed);
+				var finalRotation = Quaternion.Slerp(playerRotation, needRotation, Time.fixedDeltaTime * _settings.rotationSpeed);
 				
-				var finalPosition = playerPosition + finalRotation * Vector3.forward * (Time.fixedDeltaTime * moveSpeed * moveInput.magnitude);
+				var finalPosition = playerPosition + finalRotation * Vector3.forward * (Time.fixedDeltaTime * _settings.moveSpeed * moveInput.magnitude);
 				_model.Position = finalPosition;
 
 				_model.Rotation = Quaternion.LookRotation(finalPosition - playerPosition);
@@ -46,6 +47,13 @@ namespace TestWork.Game.Player
 			}
 			
 			_model.Rigidbody.isKinematic = true;
+		}
+		
+		[Serializable]
+		public class Settings
+		{
+			public float moveSpeed;
+			public float rotationSpeed;
 		}
 
 	}

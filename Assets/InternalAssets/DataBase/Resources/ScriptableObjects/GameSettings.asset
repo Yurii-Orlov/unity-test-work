@@ -12,6 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a3507c3b90cf634cb89cd25f12f7684, type: 3}
   m_Name: GameSettings
   m_EditorClassIdentifier: 
-  testSettings:
-    testNum: 3
-    EnemiesCreateCount: 4
+  _testSettings:
+    testNum: 0
+    EnemiesCreateCount: 0
+  _playerSettings:
+    playerMoveHandler:
+      moveSpeed: 5
+      rotationSpeed: 2

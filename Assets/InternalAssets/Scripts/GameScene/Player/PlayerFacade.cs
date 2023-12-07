@@ -19,11 +19,6 @@ namespace TestWork.Game.Player
 		public Vector3 Position => _model.Position;
 
 		public Quaternion Rotation => _model.Rotation;
-
-		// public void TakeDamage(Vector3 moveDirection)
-		// {
-		// 	_hitHandler.TakeDamage(moveDirection);
-		// }
 	}
 
 }
