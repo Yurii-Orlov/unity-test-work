@@ -8,22 +8,24 @@ namespace TestWork.Game.Enemies.EnemyStates
 	public class EnemyStateFollow : IEnemyState
 	{
 
+		private const float CHANGE_STATE_DISTANCE = 5f;
+		
 		private EnemyView _view;
 		private EnemyModel _enemyModel;
 		private PlayerFacade _playerFacade;
+		private EnemyStateManager _enemyStateManager;
 
 		[Inject]
-		public void Construct(EnemyView view, EnemyModel enemyModel, PlayerFacade playerFacade)
+		public void Construct(EnemyView view, EnemyModel enemyModel, PlayerFacade playerFacade, EnemyStateManager enemyStateManager)
 		{
 			_view = view;
 			_enemyModel = enemyModel;
 			_playerFacade = playerFacade;
+			_enemyStateManager = enemyStateManager;
 		}
 
 		public void EnterState()
 		{
-			Debug.Log("EnemyStateFollow EnterState() =>");
-			Debug.Log($"isAsctive => activeSelf = {_view.gameObject.activeSelf} :: activeInHierarchy = {_view.gameObject.activeInHierarchy}");
 			_view.ActivateNavMeshAgent();
 			_view.SetNavMeshAgentSpeed(_enemyModel.CurrentSpeed);
 		}
@@ -35,6 +37,12 @@ namespace TestWork.Game.Enemies.EnemyStates
 
 		public void Update()
 		{
+
+
+			if (Vector3.Distance(_view.Position, _playerFacade.Position) < CHANGE_STATE_DISTANCE)
+			{
+				_enemyStateManager.ChangeState(EnemyStates.Idle);
+			}
 			_view.SetNavmeshDestinationPosition(_playerFacade.Position);
 		}
 
