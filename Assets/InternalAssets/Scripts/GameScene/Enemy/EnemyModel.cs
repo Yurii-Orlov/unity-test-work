@@ -9,8 +9,8 @@
 		private float _currentSpeed;
 		private float _maxSpeed;
 		
-		
 		public float Health => _health;
+		public float CurrentSpeed => _currentSpeed;
 
 		public void InitHealth(float health)
 		{

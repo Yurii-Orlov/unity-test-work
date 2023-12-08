@@ -1,4 +1,5 @@
 ﻿using System;
+using TestWork.Game.Level;
 using UnityEngine;
 using Zenject;
 using Random = UnityEngine.Random;
@@ -10,15 +11,17 @@ namespace TestWork.Game.Enemies
     {
         private readonly EnemyFacade.Factory _enemyFactory;
         private readonly Settings _settings;
-
+        private readonly LevelView _levelView;
         private float _desiredNumEnemies;
         private int _enemyCount;
         private float _lastSpawnTime;
 
         public EnemySpawner(Settings settings,
-                            EnemyFacade.Factory enemyFactory)
+                            EnemyFacade.Factory enemyFactory,
+                            LevelView levelView)
         {
             _enemyFactory = enemyFactory;
+            _levelView = levelView;
             _settings = settings;
 
             _desiredNumEnemies = settings.maxNumEnemies;
@@ -38,13 +41,25 @@ namespace TestWork.Game.Enemies
             var speed = Random.Range(_settings.enemySpeedMin, _settings.enemySpeedMax);
 
             var enemyFacade = _enemyFactory.Create(speed);
-            enemyFacade.Position = GetRandomStartPosition();
+            enemyFacade.SetSpawnPosition(GetRandomStartPosition());
 
             _lastSpawnTime = Time.realtimeSinceStartup;
         }
 
         private Vector3 GetRandomStartPosition()
         {
+            var meshRenderer = _levelView.LevelFloorMeshRend;
+            
+            if (meshRenderer != null)
+            {
+                var bounds = meshRenderer.bounds;
+
+                var x = Random.Range(bounds.min.x, bounds.max.x);
+                var z = Random.Range(bounds.min.z, bounds.max.z);
+                
+                return new Vector3(x, 0.6f, z);
+            }
+
             return Vector3.zero;
         }
 

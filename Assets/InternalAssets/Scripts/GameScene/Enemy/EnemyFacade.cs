@@ -23,10 +23,9 @@ namespace TestWork.Game.Enemies
 			_enemyModel = enemyModel;
 		}
 
-		public Vector3 Position
+		public void SetSpawnPosition(Vector3 position)
 		{
-			get => _view.Position;
-			set => _view.Position = value;
+			_view.SetNavmeshAgentWrapPosition(position);
 		}
 
 		public void Dispose()
