@@ -1,4 +1,5 @@
 ﻿using System;
+using TestWork.Game.Enemies.EnemyStates;
 using UnityEngine;
 using Zenject;
 
@@ -8,6 +9,7 @@ namespace TestWork.Game.Enemies
 	public class EnemyFacade : MonoBehaviour, IPoolable<float, IMemoryPool>, IDisposable
 	{
 
+		private EnemyStateManager _enemyStateManager;
 		private EnemyModel _enemyModel;
 		private EnemyView _view;
 		private EnemyRegistry _registry;
@@ -16,11 +18,13 @@ namespace TestWork.Game.Enemies
 		[Inject]
 		public void Construct(EnemyView view,
 		                      EnemyRegistry registry,
-		                      EnemyModel enemyModel)
+		                      EnemyModel enemyModel,
+		                      EnemyStateManager enemyStateManager)
 		{
 			_view = view;
 			_registry = registry;
 			_enemyModel = enemyModel;
+			_enemyStateManager = enemyStateManager;
 		}
 
 		public void SetSpawnPosition(Vector3 position)
@@ -43,6 +47,7 @@ namespace TestWork.Game.Enemies
 		{
 			_pool = pool;
 			_enemyModel.InitSpeed(speed);
+			_enemyStateManager.ChangeState(EnemyStates.EnemyStates.Follow);
 			_registry.AddEnemy(this);
 		}
 

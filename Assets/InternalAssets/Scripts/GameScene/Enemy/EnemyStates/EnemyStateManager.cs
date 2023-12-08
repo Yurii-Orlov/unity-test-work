@@ -21,36 +21,22 @@ namespace TestWork.Game.Enemies.EnemyStates
 		None
 	}
 
-	public class EnemyStateManager : ITickable, IFixedTickable, IInitializable
+	public class EnemyStateManager : ITickable, IFixedTickable
 	{
 
 		private IEnemyState _currentStateHandler;
 		private EnemyStates _currentState = EnemyStates.None;
-		private EnemyView _view;
 
 		private List<IEnemyState> _states;
 
 		[Inject]
-		public void Construct(EnemyView view,
-		                      EnemyStateIdle idle,
+		public void Construct(EnemyStateIdle idle,
 		                      EnemyStateFollow follow)
 		{
-			_view = view;
 			_states = new List<IEnemyState> {idle, follow};
 		}
 
-		public EnemyStates CurrentState
-		{
-			get { return _currentState; }
-		}
-
-		public void Initialize()
-		{
-			Assert.IsEqual(_currentState, EnemyStates.None);
-			Assert.IsNull(_currentStateHandler);
-
-			ChangeState(EnemyStates.Follow);
-		}
+		public EnemyStates CurrentState => _currentState;
 
 		public void ChangeState(EnemyStates state)
 		{

@@ -24,6 +24,7 @@ namespace TestWork.Game.Enemies
             _levelView = levelView;
             _settings = settings;
 
+
             _desiredNumEnemies = settings.maxNumEnemies;
         }
 
@@ -42,7 +43,6 @@ namespace TestWork.Game.Enemies
 
             var enemyFacade = _enemyFactory.Create(speed);
             enemyFacade.SetSpawnPosition(GetRandomStartPosition());
-
             _lastSpawnTime = Time.realtimeSinceStartup;
         }
 
