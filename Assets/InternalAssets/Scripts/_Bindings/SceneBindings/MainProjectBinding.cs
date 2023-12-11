@@ -38,6 +38,7 @@ namespace TestWork.Bindings.SceneBinding
 
             Container.BindFactory<GameState, GameState.Factory>().WhenInjectedInto<GameStateFactory>();
             Container.BindFactory<MenuState, MenuState.Factory>().WhenInjectedInto<GameStateFactory>();
+            Container.BindFactory<GameRestartState, GameRestartState.Factory>().WhenInjectedInto<GameStateFactory>();
         }
 
         private void InstallGameObjects()

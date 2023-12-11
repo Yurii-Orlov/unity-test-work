@@ -8,7 +8,7 @@ namespace TestWork.Game.Enemies.EnemyStates
 	public class EnemyStateFollow : IEnemyState
 	{
 
-		private const float CHANGE_STATE_DISTANCE = 5f;
+		private const float CHANGE_STATE_DISTANCE = 1f;
 		
 		private EnemyView _view;
 		private EnemyModel _enemyModel;
@@ -37,8 +37,12 @@ namespace TestWork.Game.Enemies.EnemyStates
 
 		public void Update()
 		{
-
-
+			if (_playerFacade.IsDead && _enemyStateManager.CurrentState != EnemyStates.Idle)
+			{
+				_enemyStateManager.ChangeState(EnemyStates.Idle);
+				return;
+			}
+			
 			if (Vector3.Distance(_view.Position, _playerFacade.Position) < CHANGE_STATE_DISTANCE)
 			{
 				_enemyStateManager.ChangeState(EnemyStates.Idle);

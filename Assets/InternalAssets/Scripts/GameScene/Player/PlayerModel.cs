@@ -1,9 +1,13 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace TestWork.Game.Player
 {
 	public class PlayerModel
 	{
+
+		public event Action<float, bool> OnTakeDamage;
+
 		private readonly Rigidbody _rigidBody;
 		private float _health = 100.0f;
 		
@@ -42,11 +46,10 @@ namespace TestWork.Game.Player
 		public void TakeDamage(float healthLoss)
 		{
 			_health = Mathf.Max(0.0f, _health - healthLoss);
-		}
 
-		public void AddForce(Vector3 force)
-		{
-			_rigidBody.AddForce(force);
+			IsDead = _health == 0;
+			
+			OnTakeDamage?.Invoke(_health, IsDead);
 		}
 	}
 }

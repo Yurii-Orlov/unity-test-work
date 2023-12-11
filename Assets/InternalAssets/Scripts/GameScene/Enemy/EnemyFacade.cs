@@ -6,7 +6,7 @@ using Zenject;
 namespace TestWork.Game.Enemies
 {
 
-	public class EnemyFacade : MonoBehaviour, IPoolable<float, IMemoryPool>, IDisposable
+	public class EnemyFacade : MonoBehaviour, IPoolable<float, float, IMemoryPool>, IDisposable
 	{
 
 		private EnemyStateManager _enemyStateManager;
@@ -43,17 +43,23 @@ namespace TestWork.Game.Enemies
 			_pool = null;
 		}
 
-		public void OnSpawned(float speed, IMemoryPool pool)
+		public void OnSpawned(float speed, float damage, IMemoryPool pool)
 		{
 			_pool = pool;
 			_enemyModel.InitSpeed(speed);
+			_enemyModel.InitDamage(damage);
 			_enemyStateManager.ChangeState(EnemyStates.EnemyStates.Follow);
 			_registry.AddEnemy(this);
 		}
 
-		public class Factory : PlaceholderFactory<float, EnemyFacade>
+		public class Factory : PlaceholderFactory<float, float, EnemyFacade>
 		{
 
+		}
+
+		public float GetEnemyDamageValue()
+		{
+			return _enemyModel.GetDamageValue();
 		}
 
 	}

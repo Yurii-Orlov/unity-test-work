@@ -41,7 +41,7 @@ namespace TestWork.Game.Enemies
         {
             var speed = Random.Range(_settings.enemySpeedMin, _settings.enemySpeedMax);
 
-            var enemyFacade = _enemyFactory.Create(speed);
+            var enemyFacade = _enemyFactory.Create(speed, _settings.enemyDamage);
             enemyFacade.SetSpawnPosition(GetRandomStartPosition());
             _lastSpawnTime = Time.realtimeSinceStartup;
         }
@@ -66,6 +66,7 @@ namespace TestWork.Game.Enemies
         [Serializable]
         public class Settings
         {
+            public float enemyDamage;
             public float enemySpeedMin;
             public float enemySpeedMax;
             public float maxNumEnemies;

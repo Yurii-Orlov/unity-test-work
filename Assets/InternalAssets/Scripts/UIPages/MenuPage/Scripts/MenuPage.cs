@@ -71,7 +71,7 @@ namespace TestWork.UI.MenuPage
 
         private void PlayBtnClick()
         {
-            _gameStateManager.ChangeState(Enumerators.GameStateTypes.START_GAMEPLAY);
+            _gameStateManager.ChangeState(Enumerators.GameStateTypes.GAMEPLAY_START);
         }
     }
 }

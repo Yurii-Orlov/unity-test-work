@@ -7,7 +7,7 @@ namespace TestWork.Game.Enemies.EnemyStates
 
 	public class EnemyStateIdle : IEnemyState
 	{
-		private const float CHANGE_STATE_DISTANCE = 5f;
+		private const float CHANGE_STATE_DISTANCE = 1f;
 		
 		private EnemyView _view;
 		private EnemyModel _enemyModel;

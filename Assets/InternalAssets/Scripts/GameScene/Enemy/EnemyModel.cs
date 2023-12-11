@@ -4,6 +4,7 @@
 	public class EnemyModel
 	{
 
+		private float _damage;
 		private float _health = 100.0f;
 		private float _maxHealth;
 		private float _currentSpeed;
@@ -23,7 +24,17 @@
 			_maxSpeed = speed;
 			_currentSpeed = _maxSpeed;
 		}
-		
+
+		public void InitDamage(float damageValue)
+		{
+			_damage = damageValue;
+		}
+
+		public float GetDamageValue()
+		{
+			return _damage;
+		}
+
 	}
 
 }

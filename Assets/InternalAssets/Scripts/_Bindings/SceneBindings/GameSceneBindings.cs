@@ -3,6 +3,7 @@ using TestWork.Game.Enemies;
 using TestWork.Managers;
 using TestWork.UI.GamePage;
 using TestWork.UI.Interfaces;
+using TestWork.UI.LoadingPopup;
 using UnityEngine;
 using Zenject;
 
@@ -29,12 +30,13 @@ namespace TestWork.Bindings.SceneBinding
         private void InitUiViews()
         {
             Container.Bind(typeof(IInitializable), typeof(IDisposable), typeof(IUIElement)).To<GamePage>().AsSingle();
+            Container.Bind(typeof(IInitializable), typeof(IDisposable), typeof(IUIPopup)).To<GameRestartPopup>().AsSingle();
         }
 
         private void InitPool()
         {
-            Container.BindFactory<float, EnemyFacade, EnemyFacade.Factory>()
-                     .FromPoolableMemoryPool<float, EnemyFacade, EnemyFacadePool>(poolBinder => poolBinder
+            Container.BindFactory<float, float, EnemyFacade, EnemyFacade.Factory>()
+                     .FromPoolableMemoryPool<float, float, EnemyFacade, EnemyFacadePool>(poolBinder => poolBinder
                          .WithInitialSize(8)
                          .FromSubContainerResolve()
                          .ByNewPrefabInstaller<EnemyInstaller>(_settings.enemyFacadePrefab)
@@ -47,7 +49,7 @@ namespace TestWork.Bindings.SceneBinding
             public GameObject enemyFacadePrefab;
         }
 
-        class EnemyFacadePool : MonoPoolableMemoryPool<float, IMemoryPool, EnemyFacade>
+        private class EnemyFacadePool : MonoPoolableMemoryPool<float, float, IMemoryPool, EnemyFacade>
         {
         }
     }

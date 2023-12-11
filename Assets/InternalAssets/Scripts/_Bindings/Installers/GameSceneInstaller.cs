@@ -1,7 +1,6 @@
 using System;
 using TestWork.Bindings.SceneBinding;
 using TestWork.Game.Enemies;
-using TestWork.Game.Enemies.EnemyStates;
 using TestWork.Game.Player;
 using UnityEngine;
 using Zenject;

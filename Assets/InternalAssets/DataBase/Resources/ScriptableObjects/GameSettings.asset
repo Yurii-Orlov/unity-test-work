@@ -19,6 +19,7 @@ MonoBehaviour:
     enemyFacadePrefab: {fileID: 7997255307564303588, guid: dfb7e4c4442da9a44955951f2978c1e8,
       type: 3}
   _enemySpawner:
+    enemyDamage: 100
     enemySpeedMin: 2
     enemySpeedMax: 5
     maxNumEnemies: 10

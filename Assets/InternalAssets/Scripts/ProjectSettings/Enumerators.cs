@@ -4,7 +4,7 @@
     {
         public enum GameStateTypes
         {
-            MENU, START_GAMEPLAY
+            MENU, GAMEPLAY_START, GAMEPLAY_LOSE
         }
     }
 }

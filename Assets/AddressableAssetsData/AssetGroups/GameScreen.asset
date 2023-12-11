@@ -22,11 +22,19 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - local
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 37157de5a984d7941a475a92f8f6e7c2
     m_Address: Game
     m_ReadOnly: 0
     m_SerializedLabels:
     - local
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d115cf6fc17d18d4ab5fca45b2685051
+    m_Address: GameRestartPopup
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - local
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: e1dacdf85059eac4f9f5da8da9210dd0, type: 2}
   m_SchemaSet:

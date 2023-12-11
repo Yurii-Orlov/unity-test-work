@@ -1,4 +1,7 @@
 ﻿using System;
+using TestWork.Game.Player;
+using TestWork.GameStates;
+using TestWork.ProjectSettings;
 using Zenject;
 
 namespace TestWork.Managers
@@ -6,33 +9,39 @@ namespace TestWork.Managers
     public class GameManager : IInitializable, IDisposable
     {
 
-        private event Action RestartGame;
-        private event Action StartGame;
-        
+        private PlayerFacade _playerFacade;
+        private GameStateManager _gameStateManager;
+
         public bool IsGameRunning { get; private set; }
 
-
-        public void PauseGame()
+        [Inject]
+        private void Construct(PlayerFacade playerFacade, GameStateManager gameStateManager)
         {
+            _gameStateManager = gameStateManager;
+            _playerFacade = playerFacade;
+            _playerFacade.OnTakeDamage += OnPlayerTakeDamage;
         }
 
-        public void RestartGameHandler()
+        private void OnPlayerTakeDamage(float health, bool isDead)
         {
-            RestartGame?.Invoke();
+            if (isDead)
+            {
+                StopGame();
+                _gameStateManager.ChangeState(Enumerators.GameStateTypes.GAMEPLAY_LOSE);
+            }
         }
 
-        public void StartGameHandler()
-        {
-            StartGame?.Invoke();
-        }
-
-        public void StopGame()
+        private void StopGame()
         {
             IsGameRunning = false;
         }
 
         public void Dispose()
         {
+            if (_playerFacade != null)
+            {
+                _playerFacade.OnTakeDamage -= OnPlayerTakeDamage;
+            }
         }
 
         public void Initialize()
