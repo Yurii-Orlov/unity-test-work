@@ -16,6 +16,7 @@ namespace TestWork.UI.LoadingPopup
         {
 
             public Button restartButton;
+            public TMP_Text infoText;
 
         }
     }

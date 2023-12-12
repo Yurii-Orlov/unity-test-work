@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using TestWork.Game;
 using TestWork.Managers;
 using TestWork.UI.LoadingPopup;
 using UniRx;
@@ -9,21 +10,27 @@ namespace TestWork.GameStates.States
 
 	public class GameRestartState : GameStateEntity
 	{
-		private readonly SceneLoaderManager _sceneLoaderManager;
 		private readonly CompositeDisposable _disposable;
         private readonly UIManager _uiManager;
+        private readonly GamePlayTimer _gamePlayTimer;
 
-        public GameRestartState(UIManager uiManager, SceneLoaderManager sceneLoaderManager)
+        public GameRestartState(UIManager uiManager, GamePlayTimer gamePlayTimer)
         {
-	        _sceneLoaderManager = sceneLoaderManager;
 	        _uiManager = uiManager;
-            _disposable = new CompositeDisposable();
+	        _gamePlayTimer = gamePlayTimer;
+	        _disposable = new CompositeDisposable();
         }
         
         public override void Start()
         {
 	        _uiManager.HideAllPopups();
-	        _uiManager.DrawPopup<GameRestartPopup>(setMainPriority: true);
+
+	        var gameRestartPopupData = new GameRestartPopup.GameRestartPopupData()
+	        {
+		        gameLiveTimer = _gamePlayTimer.GameTimer
+	        };
+	        
+	        _uiManager.DrawPopup<GameRestartPopup>(gameRestartPopupData, setMainPriority: true);
         }
 
         public override Task Dispose()

@@ -1,4 +1,5 @@
 ﻿using System;
+using TestWork.Game;
 using TestWork.Game.Player;
 using TestWork.GameStates;
 using TestWork.ProjectSettings;
@@ -11,14 +12,16 @@ namespace TestWork.Managers
 
         private PlayerFacade _playerFacade;
         private GameStateManager _gameStateManager;
+        private GamePlayTimer _gamePlayTimer;
 
         public bool IsGameRunning { get; private set; }
 
         [Inject]
-        private void Construct(PlayerFacade playerFacade, GameStateManager gameStateManager)
+        private void Construct(PlayerFacade playerFacade, GameStateManager gameStateManager, GamePlayTimer gamePlayTimer)
         {
             _gameStateManager = gameStateManager;
             _playerFacade = playerFacade;
+            _gamePlayTimer = gamePlayTimer;
             _playerFacade.OnTakeDamage += OnPlayerTakeDamage;
         }
 
@@ -26,6 +29,7 @@ namespace TestWork.Managers
         {
             if (isDead)
             {
+                _gamePlayTimer.StopTimer();
                 StopGame();
                 _gameStateManager.ChangeState(Enumerators.GameStateTypes.GAMEPLAY_LOSE);
             }
@@ -46,7 +50,8 @@ namespace TestWork.Managers
 
         public void Initialize()
         {
-
+            _gamePlayTimer.StartTimer();
         }
+
     }
 }

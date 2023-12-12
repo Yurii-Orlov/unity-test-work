@@ -70,6 +70,11 @@ namespace TestWork.UI.LoadingPopup
 
         public void Show(object data)
         {
+            if (data is GameRestartPopupData popupData)
+            {
+                _pageComponent.Info.infoText.text = $"Player was alive: {popupData.gameLiveTimer}";
+            }
+            
             Show();
         }
 
@@ -79,6 +84,11 @@ namespace TestWork.UI.LoadingPopup
             {
                 SelfPage.SetActive(false);
             }
+        }
+        
+        public class GameRestartPopupData
+        {
+            public float gameLiveTimer;
         }
     }
 }

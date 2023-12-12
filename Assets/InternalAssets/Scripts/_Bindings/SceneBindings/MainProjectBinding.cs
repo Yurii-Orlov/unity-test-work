@@ -1,4 +1,5 @@
 ﻿using System;
+using TestWork.Game;
 using TestWork.GameStates;
 using TestWork.GameStates.States;
 using TestWork.Helpers;
@@ -25,6 +26,7 @@ namespace TestWork.Bindings.SceneBinding
             Container.BindInterfacesAndSelfTo<UIManager>().AsSingle();
             Container.BindInterfacesAndSelfTo<SceneLoaderManager>().AsSingle();
             Container.BindInterfacesAndSelfTo<ContentLoadController>().AsSingle();
+            Container.BindInterfacesAndSelfTo<GamePlayTimer>().AsSingle();
         }
 
         private void InitUiViews()
