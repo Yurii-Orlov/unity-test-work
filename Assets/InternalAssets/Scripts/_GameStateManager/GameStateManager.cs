@@ -15,12 +15,11 @@ namespace TestWork.GameStates
             _gameStateFactory = gameStateFactory;
         }
 
-        internal void ChangeState(Enumerators.GameStateTypes state)
+        public async void ChangeState(Enumerators.GameStateTypes state)
         {
             if (_gameStateEntity != null)
             {
-                _gameStateEntity.Dispose();
-                _gameStateEntity = null;
+                await _gameStateEntity.Dispose();
             }
             
             _gameStateEntity = _gameStateFactory.CreateState(state);

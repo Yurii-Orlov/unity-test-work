@@ -1,4 +1,5 @@
-﻿using TestWork.Managers;
+﻿using System.Threading.Tasks;
+using TestWork.Managers;
 using TestWork.ProjectSettings;
 using TestWork.UI.GamePage;
 using UniRx;
@@ -25,10 +26,10 @@ namespace TestWork.GameStates.States
             _disposable = new CompositeDisposable();
         }
 
-        public override void Start()
+        public override async void Start()
         {
+            await _sceneLoaderManager.UnloadScene(SceneNames.GAME);
             _sceneLoaderManager.ChangeScene(SceneNames.GAME, LoadSceneMode.Additive);
-
             Debug.Log("Gameplay state started");
         }
 
@@ -41,11 +42,12 @@ namespace TestWork.GameStates.States
         {
         }
 
-        public override void Dispose()
+        public override Task Dispose()
         {
-            _sceneLoaderManager.UnloadScene(SceneNames.GAME);
             _sceneLoaderManager.SceneFinishedLoading -= SceneFinishLoading;
             _disposable.Dispose();
+            
+            return Task.CompletedTask;
         }
 
         private void SceneFinishLoading()

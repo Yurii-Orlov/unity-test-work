@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using TestWork.Modules.LoadContent.Addressable;
 using TestWork.UI.LoadingPopup;
 using UniRx;
+using UniRx.Async;
 using UnityEngine;
 using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.SceneManagement;
@@ -162,22 +164,18 @@ namespace TestWork.Managers
             _disposables.Clear();
         }
         
-        public void UnloadScene(string sceneName)
+        public async Task UnloadScene(string sceneName, Action onComplete = null)
         {
             if (_loadedBuildInScenes.Contains(sceneName))
             {
-                SceneManager.UnloadSceneAsync(sceneName).completed += (res) =>
-                {
-                    _loadedBuildInScenes.Remove(sceneName);
-                };
+                await SceneManager.UnloadSceneAsync(sceneName);
+                _loadedBuildInScenes.Remove(sceneName);
             }
 
             if (_loadedAddressablesScenes.TryGetValue(sceneName, out var sceneLoadData))
             {
-                AddressablesSceneLoader.UnloadSceneAsync(sceneLoadData).Completed += (res) =>
-                {
-                    _loadedAddressablesScenes.Remove(sceneName);
-                };
+                await AddressablesSceneLoader.UnloadSceneAsync(sceneLoadData);
+                _loadedAddressablesScenes.Remove(sceneName);
             }
         }
     }

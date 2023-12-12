@@ -1,7 +1,9 @@
-﻿using TestWork.Managers;
+﻿using System.Threading.Tasks;
+using TestWork.Managers;
 using TestWork.ProjectSettings;
 using TestWork.UI.MenuPage;
 using UniRx;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 using Zenject;
 
@@ -29,18 +31,20 @@ namespace TestWork.GameStates.States
             _sceneLoaderManager.SceneFinishedLoading += OnSceneFinishLoading;
         }
 
-        public override void Start()
+        public override async void Start()
         {
+            await _sceneLoaderManager.UnloadScene(SceneNames.GAME);
             _sceneLoaderManager.ChangeScene(SceneNames.MENU, LoadSceneMode.Additive);
+            Debug.Log("Menu state started");
         }
 
         public override void Tick()
         {
         }
 
-        public override void Dispose()
+        public override async Task Dispose()
         {
-            _sceneLoaderManager.UnloadScene(SceneNames.MENU);
+            await _sceneLoaderManager.UnloadScene(SceneNames.MENU);
             _sceneLoaderManager.SceneFinishedLoading -= OnSceneFinishLoading;
             _disposable.Dispose();
         }

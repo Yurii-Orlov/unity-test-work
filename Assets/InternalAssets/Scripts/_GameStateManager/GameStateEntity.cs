@@ -1,9 +1,9 @@
-﻿using System;
+﻿using System.Threading.Tasks;
 using Zenject;
 
 namespace TestWork.GameStates
 {
-    public abstract class GameStateEntity : IInitializable, ITickable, IDisposable
+    public abstract class GameStateEntity : IInitializable, ITickable
     {
 
         public virtual void Initialize()
@@ -11,7 +11,7 @@ namespace TestWork.GameStates
             
         }
 
-        public virtual void Start()
+        public virtual async void Start()
         {
 
         }
@@ -21,9 +21,7 @@ namespace TestWork.GameStates
             
         }
 
-        public virtual void Dispose()
-        {
-            
-        }
+        public abstract Task Dispose();
+
     }
 }

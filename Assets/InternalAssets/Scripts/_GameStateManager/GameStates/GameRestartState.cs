@@ -1,5 +1,5 @@
-﻿using TestWork.Managers;
-using TestWork.ProjectSettings;
+﻿using System.Threading.Tasks;
+using TestWork.Managers;
 using TestWork.UI.LoadingPopup;
 using UniRx;
 using Zenject;
@@ -26,10 +26,12 @@ namespace TestWork.GameStates.States
 	        _uiManager.DrawPopup<GameRestartPopup>(setMainPriority: true);
         }
 
-        public override void Dispose()
+        public override Task Dispose()
         {
 	        _uiManager.HidePopup<GameRestartPopup>();
             _disposable.Dispose();
+            
+            return Task.CompletedTask;
         }
 
         public class Factory : PlaceholderFactory<GameRestartState>
