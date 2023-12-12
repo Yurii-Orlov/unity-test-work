@@ -38,10 +38,6 @@ namespace TestWork.GameStates.States
             Debug.Log("Menu state started");
         }
 
-        public override void Tick()
-        {
-        }
-
         public override async Task Dispose()
         {
             await _sceneLoaderManager.UnloadScene(SceneNames.MENU);

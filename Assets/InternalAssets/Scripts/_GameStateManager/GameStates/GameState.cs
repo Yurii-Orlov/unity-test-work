@@ -38,10 +38,6 @@ namespace TestWork.GameStates.States
             _sceneLoaderManager.SceneFinishedLoading += SceneFinishLoading;
         }
 
-        public override void Tick()
-        {
-        }
-
         public override Task Dispose()
         {
             _sceneLoaderManager.SceneFinishedLoading -= SceneFinishLoading;

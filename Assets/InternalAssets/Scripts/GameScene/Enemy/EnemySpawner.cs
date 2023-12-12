@@ -37,7 +37,7 @@ namespace TestWork.Game.Enemies
             }
         }
 
-        void SpawnEnemy()
+        private void SpawnEnemy()
         {
             var speed = Random.Range(_settings.enemySpeedMin, _settings.enemySpeedMax);
 

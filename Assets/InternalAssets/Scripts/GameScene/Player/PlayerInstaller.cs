@@ -12,10 +12,8 @@ namespace TestWork.Game.Player
 		public override void InstallBindings()
 		{
 			Container.Bind<PlayerModel>().AsSingle().WithArguments(_settings.Rigidbody);
-			
 			Container.BindInterfacesTo<PlayerInputHandler>().AsSingle();
 			Container.Bind<PlayerInputState>().AsSingle();
-
 			Container.BindInterfacesTo<PlayerMoveHandler>().AsSingle();
 		}
 

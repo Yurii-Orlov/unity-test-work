@@ -11,8 +11,8 @@ namespace TestWork.GameStates
         private readonly GameRestartState.Factory _gameRestartStateFactory;
 
         public GameStateFactory(GameState.Factory gamePlayFactory,
-            MenuState.Factory menuStateFactory,
-            GameRestartState.Factory gameRestartStateFactory)
+                                MenuState.Factory menuStateFactory,
+                                GameRestartState.Factory gameRestartStateFactory)
         {
             _gamePlayFactory = gamePlayFactory;
             _menuStateFactory = menuStateFactory;

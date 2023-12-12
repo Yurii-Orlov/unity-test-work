@@ -6,8 +6,8 @@ namespace TestWork.Game.Player
 	public class PlayerInputHandler : ITickable
 	{
 
-		private readonly PlayerInputState _playerInputState;
 		private PlayerInputActions.PlayerActions _playerInputActions;
+		private readonly PlayerInputState _playerInputState;
 		private readonly bool _isEnabled;
 
 		public PlayerInputHandler(PlayerInputState playerInputState)

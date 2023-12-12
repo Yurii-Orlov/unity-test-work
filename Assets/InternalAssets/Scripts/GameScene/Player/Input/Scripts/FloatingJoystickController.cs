@@ -8,7 +8,7 @@ namespace TestWork.Modules.Input
     public class FloatingJoystickController : OnScreenControl, IPointerDownHandler, IPointerUpHandler, IDragHandler
     {
         [InputControl(layout = "Vector2")]
-        [SerializeField]
+        [SerializeField] 
         private string _controlPath;
 
         [SerializeField] private RectTransform _background;
@@ -20,7 +20,7 @@ namespace TestWork.Modules.Input
             set => _controlPath = value;
         }
 
-        void Start()
+        private void Start()
         {
             _background.gameObject.SetActive(false);
         }
