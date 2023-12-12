@@ -29,6 +29,11 @@ namespace TestWork.Game.Player
 			_model.TakeDamage(damage);
 		}
 
+		public void DeactivatePlayer()
+		{
+			gameObject.SetActive(false);
+		}
+
 		private void OnDestroy()
 		{
 			if (_model != null)

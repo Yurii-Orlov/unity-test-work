@@ -35,6 +35,11 @@ namespace TestWork.Game.Enemies.EnemyStates
 
 		public void Update()
 		{
+			if (_playerFacade.IsDead)
+			{
+				return;
+			}
+			
 			if (Vector3.Distance(_view.Position, _playerFacade.Position) > CHANGE_STATE_DISTANCE)
 			{
 				_enemyStateManager.ChangeState(EnemyStates.Follow);

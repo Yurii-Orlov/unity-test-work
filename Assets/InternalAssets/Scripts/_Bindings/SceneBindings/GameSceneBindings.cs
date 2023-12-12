@@ -1,4 +1,5 @@
 ﻿using System;
+using TestWork.Game.Effects;
 using TestWork.Game.Enemies;
 using TestWork.Managers;
 using TestWork.UI.GamePage;
@@ -41,15 +42,26 @@ namespace TestWork.Bindings.SceneBinding
                          .FromSubContainerResolve()
                          .ByNewPrefabInstaller<EnemyInstaller>(_settings.enemyFacadePrefab)
                          .UnderTransformGroup("Enemies"));
+            
+            Container.BindFactory<Explosion, Explosion.Factory>()
+                     .FromPoolableMemoryPool<Explosion, ExplosionPool>(poolBinder => poolBinder
+                                                                           .WithInitialSize(2)
+                                                                           .FromComponentInNewPrefab(_settings.explosionPrefab)
+                                                                           .UnderTransformGroup("Explosions"));
         }
         
         [Serializable]
         public class Settings
         {
             public GameObject enemyFacadePrefab;
+            public GameObject explosionPrefab;
         }
 
         private class EnemyFacadePool : MonoPoolableMemoryPool<float, float, IMemoryPool, EnemyFacade>
+        {
+        }
+        
+        private class ExplosionPool : MonoPoolableMemoryPool<IMemoryPool, Explosion>
         {
         }
     }

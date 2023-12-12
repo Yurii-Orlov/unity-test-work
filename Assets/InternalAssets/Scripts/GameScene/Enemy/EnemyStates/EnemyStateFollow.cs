@@ -39,6 +39,7 @@ namespace TestWork.Game.Enemies.EnemyStates
 		{
 			if (_playerFacade.IsDead && _enemyStateManager.CurrentState != EnemyStates.Idle)
 			{
+				_view.StopNavMeshAgent();
 				_enemyStateManager.ChangeState(EnemyStates.Idle);
 				return;
 			}
